@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hwua.mapper.NewsMapper">
+    <select id="findALLNews" resultType="news">
+        select id,content,score from news;
+    </select>
+
+    <update id="updateNews" parameterType="list">
+        <if test="list!=null and list.size>0">
+            update news set score = case id
+            <foreach collection="list" item="item">
+                when #{item.id} then #{item.score}
+            </foreach>
+        </if>
+        end
+        where id in
+        <if test="list!=null and list.size>0">
+            <foreach collection="list" item="item" open="(" separator="," close=")">
+                #{item.id}
+            </foreach>
+        </if>
+    </update>
+</mapper>
