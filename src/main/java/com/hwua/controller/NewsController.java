@@ -34,4 +34,8 @@ public class NewsController {
         }
 
     }
+
+    public void  aa(){
+        System.out.println("hahahahaah");
+    }
 }
